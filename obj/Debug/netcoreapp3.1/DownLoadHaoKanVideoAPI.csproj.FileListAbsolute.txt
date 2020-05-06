@@ -54,6 +54,8 @@ C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\bin\De
 C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.dll
 C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.pdb
 C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.genruntimeconfig.cache
-C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\obj\Debug\netcoreapp3.1\DownLoadHaoKanVideoAPI.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
+C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.Polly.dll
+C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\bin\Debug\netcoreapp3.1\Polly.dll
+C:\Users\Administrator\Desktop\新建文件夹 (2)\DownLoadHaoKanVideoAPI\bin\Debug\netcoreapp3.1\Polly.Extensions.Http.dll

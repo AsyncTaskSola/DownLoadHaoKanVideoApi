@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DownLoadHaoKanVideoAPI.Entity;
 using DownLoadHaoKanVideoAPI.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,7 @@ namespace DownLoadHaoKanVideoAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ResultModel<Employee>> Login(LoginRequest req)
         {
             try
@@ -46,7 +48,7 @@ namespace DownLoadHaoKanVideoAPI.Controllers
                 user.Password = null;
                 if (signInResult.Succeeded)
                 {
-                    return new ResultModel<Employee> { State = ResultType.Success, Message = "登录成功", Data = user };
+                    return new ResultModel<Employee> { State = ResultType.Success, Message = "登录成功", Data = user };//前端可以判断返回的Message信息来做跳转
                 }
                 else
                 {
@@ -55,9 +57,9 @@ namespace DownLoadHaoKanVideoAPI.Controllers
             }
             catch (Exception e)
             {
-                return new ResultModel<Employee> { State = ResultType.Error, Message = "存在未知异常" };
+                return new ResultModel<Employee> { State = e.ToString()
+                    , Message = "存在未知异常" };
             }
-
         }
         [HttpPost]
         public async Task<ResultModel<Employee>> CreatTask([FromForm]Employee employee)
