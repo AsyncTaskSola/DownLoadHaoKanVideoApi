@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DownLoadHaoKanVideoAPI</name>
+    </assembly>
+    <members>
+        <member name="T:DownLoadHaoKanVideoAPI.Controllers.AccountController">
+            <summary>
+            账户登陆，注册
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Controllers.AccountController.Login(DownLoadHaoKanVideoAPI.Entity.LoginRequest)">
+            <summary>
+            登陆
+            </summary>
+            <param name="req">登陆用户</param>
+            <returns></returns>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Controllers.AccountController.CreatAuthor(DownLoadHaoKanVideoAPI.Entity.Employee)">
+            <summary>
+            创建用户
+            </summary>
+            <param name="employee"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Controllers.AccountController.Forbidden(System.String)">
+            <summary>
+            失败返回默认链接（暂时用不上）
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Controllers.AccountController.MD5Encrypt(System.String)">
+            <summary>
+            MD5 加密
+            </summary>
+        </member>
+        <member name="T:DownLoadHaoKanVideoAPI.Controllers.VideoDownloadController">
+            <summary>
+            视频下载部分
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Controllers.VideoDownloadController.GetUrl(System.String)">
+            <summary>
+            获取下载视频信息 (这里不加权限可以直接用)
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.AccountManager.FindByNameAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            根据用户名查询用户
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.AccountManager.GetPasswordHashAsync(DownLoadHaoKanVideoAPI.Entity.Employee,System.Threading.CancellationToken)">
+            <summary>
+            获取用户的密码哈希值
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.AccountManager.GetUserIdAsync(DownLoadHaoKanVideoAPI.Entity.Employee,System.Threading.CancellationToken)">
+            <summary>
+            读取用户ID
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.AccountManager.GetUserNameAsync(DownLoadHaoKanVideoAPI.Entity.Employee,System.Threading.CancellationToken)">
+            <summary>
+            读取用户名
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.AccountManager.CreateAsync(DownLoadHaoKanVideoAPI.Entity.Employee,System.Threading.CancellationToken)">
+            <summary>
+            添加用户 (不用了还要重新迁移继承: IdentityUser接口)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.Downloads._currentVideoPath">
+            <summary>
+            当前的视频路径
+            </summary>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.Downloads._download">
+            <summary>
+            已下载
+            </summary>
+        </member>
+        <member name="M:DownLoadHaoKanVideoAPI.Entity.Downloads.RunClient(System.Int32,System.Int32,System.Net.WebProxy,System.String)">
+            <summary>
+            Ctor 下载客户端配置
+            </summary>
+            <param name="threadCount">线程数</param>
+            <param name="byteArraySize">缓存的字节 1G？</param>
+            <param name="webProxy">代理</param>
+            <param name="basePath">基础下载路径</param>
+        </member>
+        <member name="F:DownLoadHaoKanVideoAPI.Entity.ResultType.Info">
+            <summary>
+            消息结果类型
+            </summary>
+        </member>
+        <member name="F:DownLoadHaoKanVideoAPI.Entity.ResultType.Success">
+            <summary>
+            成功结果类型
+            </summary>
+        </member>
+        <member name="F:DownLoadHaoKanVideoAPI.Entity.ResultType.Warning">
+            <summary>
+            警告结果类型
+            </summary>        
+        </member>
+        <member name="F:DownLoadHaoKanVideoAPI.Entity.ResultType.Error">
+            <summary>
+            异常结果类型
+            </summary>
+        </member>
+        <member name="F:DownLoadHaoKanVideoAPI.Entity.ResultType.Timeout">
+            <summary>
+            超时
+            </summary>
+        </member>
+        <member name="T:DownLoadHaoKanVideoAPI.Entity.ResultModel`1">
+            <summary>
+            通过消息返回类型
+            </summary>
+            <typeparam name="T">返回数据类型</typeparam>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.ResultModel`1.State">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.ResultModel`1.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.ResultModel`1.Data">
+            <summary>
+            返回数据 
+            </summary>
+        </member>
+        <member name="P:DownLoadHaoKanVideoAPI.Entity.ResultModel`1.Error">
+            <summary>
+            错误对象
+            </summary>
+        </member>
+    </members>
+</doc>

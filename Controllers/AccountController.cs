@@ -6,25 +6,34 @@ using System.Threading.Tasks;
 using DownLoadHaoKanVideoAPI.Entity;
 using DownLoadHaoKanVideoAPI.Interface;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DownLoadHaoKanVideoAPI.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// 账户登陆，注册
+    /// </summary>
     [Route("api/[controller]/[action]")]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _loginManager;
         private readonly IEmployeeServers _employeeServers;
 
-        public AccountController(UserManager<Employee> userManager, SignInManager<Employee> loginManager,IEmployeeServers employeeServers)
+        public AccountController(UserManager<Employee> userManager, SignInManager<Employee> loginManager, IEmployeeServers employeeServers)
         {
             _userManager = userManager;
             _loginManager = loginManager;
             _employeeServers = employeeServers;
         }
+        /// <summary>
+        /// 登陆
+        /// </summary>
+        /// <param name="req">登陆用户</param>
+        /// <returns></returns>
 
         [HttpPost]
         [Authorize]
@@ -52,32 +61,45 @@ namespace DownLoadHaoKanVideoAPI.Controllers
                 }
                 else
                 {
-                    return new ResultModel<Employee> { State = ResultType.Error, Message = "存在未知异常"};
+                    return new ResultModel<Employee> { State = ResultType.Error, Message = "存在未知异常" };
                 }
             }
             catch (Exception e)
             {
-                return new ResultModel<Employee> { State = e.ToString()
-                    , Message = "存在未知异常" };
+                return new ResultModel<Employee>
+                {
+                    State = e.ToString()
+                    ,
+                    Message = "存在未知异常"
+                };
             }
         }
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ResultModel<Employee>> CreatTask([FromForm]Employee employee)
+        public async Task<ResultModel<Employee>> CreatAuthor([FromForm]Employee employee)
         {
             if (employee == null) throw new Exception(nameof(employee));
-            if (string.IsNullOrEmpty(employee.UserName)||string.IsNullOrEmpty(employee.Password)) 
+            if (string.IsNullOrEmpty(employee.UserName) || string.IsNullOrEmpty(employee.Password))
                 return new ResultModel<Employee> { State = ResultType.Error, Message = "账号或密码不能为空" };
             if (ModelState.IsValid)
             {
                 employee.Password = MD5Encrypt(employee.Password);
-                employee.Status = 1; 
+                employee.Status = 1;
                 _employeeServers.AddEmployee(employee);
                 //添加用户(不用了还要重新迁移继承: IdentityUser接口) 想了解自己看官网
                 //result= await _userManager.CreateAsync(employee,employee.Password);
             }
             return new ResultModel<Employee> { State = ResultType.Success, Message = "账号创建成功", Data = employee };
         }
-
+        /// <summary>
+        /// 失败返回默认链接（暂时用不上）
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<ResultModel<string>> Forbidden(string returnUrl)
