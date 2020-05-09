@@ -14,5 +14,8 @@ namespace DownLoadHaoKanVideoAPI.Entity.Video
         public string DownLoadUrl { get; set; }
         public long FileSize { get; set; }
         public string Info { get; set; }
+
+        public long Startposition { get; set; }
+        public long Endpositon { get; set; }
     }
 }

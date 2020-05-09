@@ -44,15 +44,33 @@ namespace DownLoadHaoKanVideoAPI.Controllers
         }
 
         /// <summary>
-        /// 建立本地文件  前端要请求两次
+        /// 建立本地文件  前端要请求两次（点击下载时候，=》和下载）
         /// </summary>
-        [HttpPost]
-        public Task<object> CreatFile([FromQuery]string Title, [FromQuery] long Filesize)
+        [HttpGet]
+        public ActionResult<object> GetCreatFile([FromQuery]string Title, [FromQuery] long Filesize)
         {
             if (!string.IsNullOrEmpty(Title) && Filesize > 0)
             {
-
+                var resultdata= downloads.CreateFile(Title, Filesize);
+                return new ResultModel<VideoInfo> {State = ResultType.Success, Message = $"创建目标文件成功+{resultdata}"};
             }
+            return new ResultModel<VideoInfo> { State = ResultType.Error, Message = "创建目标文件失败" };
+        }
+        /// <summary>
+        /// 请求下载
+        /// </summary>
+        /// <param name="Info"></param>    前端需要在请求GetUrlInfo接口时保存返回的下载信息
+        /// <param name="Filesize"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<object> DownloadStart([FromForm] VideoInfo Info, long Filesize)
+        {
+           //var click= Info ?? throw new ApplicationException("请输入相关的视频查询信息内容");
+           if (Info == null || Filesize <= 0)
+           {
+               return new ResultModel<VideoInfo> { State = ResultType.Error, Message = "请输入相关的视频查询信息内容" };
+           }
+
         }
     }
 }

@@ -5,12 +5,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using DownLoadHaoKanVideoAPI.Entity.Video;
 using HtmlAgilityPack;
 
 namespace DownLoadHaoKanVideoAPI.Entity
 {
+    /// <summary>
+    /// 线程问题，不用三层写法
+    /// </summary>
     public class Downloads
     {
         private int _threadCound;
@@ -68,7 +72,12 @@ namespace DownLoadHaoKanVideoAPI.Entity
             var source = await GetVideoInfo(Client, url);
             return source;
         }
-
+        /// <summary>
+        /// 获取视频信息
+        /// </summary>
+        /// <param name="Client"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<VideoInfo> GetVideoInfo(HttpClient Client, string url)
         {
             var response = await Client.GetAsync(url);
@@ -95,11 +104,68 @@ namespace DownLoadHaoKanVideoAPI.Entity
                 FileSize = length.Value
             };
         }
-
-        public void CreateFile(string title, long filesize)
+        /// <summary>
+        /// 创建视频路径，文件
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="filesize"></param>
+        /// <returns></returns>
+        public string CreateFile(string title, long filesize)
         {
-            //_currentVideoPath=Path
+            _currentVideoPath = Path.Combine(_basePash, $"{title}.Mp4");
+            if(!Directory.Exists(_basePash))
+            {
+                Directory.CreateDirectory(_basePash);
+            }
+            using var filestream = new FileStream(_currentVideoPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+            var count = filesize / 1024 / 1024;
+            _download = 0;
+            Console.WriteLine($"创建文件：{_currentVideoPath},大小{count}MB");
+            filestream.SetLength(filesize);
+            return $"\r\n创建文件：{_currentVideoPath},大小{count}MB";
         }
+        /// <summary>
+        /// 下载
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="fileSize"></param>
+        public VideoInfo MultithreadDownload(VideoInfo info, long fileSize)
+        {
+            long fileLocation = 0;
+            if (fileSize == 0)
+            {
+                return null;
+            }
+            //参考https://www.cnblogs.com/yeqifeng2288/p/11378744.html
+            // 不要意外复制。每个实例都是独立的。
+            var spinlock=new SpinLock();
+            var tasklist = new List<Task>();
+            var token=new CancellationTokenSource();//取消操作
+            var ct = token.Token;
+
+            for (int i = 0; i < _threadCound; i++)
+            {
+                var task=new Task(async () =>
+                {
+                    while (fileSize>fileLocation)
+                    {
+                        if (ct.IsCancellationRequested)
+                        {
+                            break;
+                        }
+
+                        var lockcase = false;
+                        spinlock.Enter(ref lockcase);
+                        info.Startposition = fileLocation;
+                        if ()
+                        {
+                            
+                        }
+                    }
+                });
+            }
+        }
+
 
     }
 }
